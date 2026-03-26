@@ -1,0 +1,98 @@
+<div class="dashboard-layout">
+
+  <!-- LEFT: ACCOUNT SUMMARY -->
+  <div class="sidebar" *ngIf="dashboard">
+    <h3>Account Summary</h3>
+
+    <p><strong>Name:</strong> {{ dashboard.accountHolderName }}</p>
+    <p><strong>Acc No:</strong> {{ dashboard.accountNumber }}</p>
+    <p><strong>Balance:</strong> ₹{{ dashboard.balance | number:'1.2-2' }}</p>
+
+    <button (click)="fetchAccountDetails()" [class.active]="showAccountDetails">Account Details</button>
+    <button (click)="fetchTransactions()" [class.active]="showTransactions">My Transactions</button>
+  </div>
+
+  <!-- RIGHT: CONTENT AREA -->
+  <div class="content-area">
+
+    <!-- ACCOUNT DETAILS (Table Format) -->
+    <div *ngIf="showAccountDetails && account" class="card">
+      <h3>Account Details</h3>
+      <table class="account-details-table">
+        <tbody>
+          <tr>
+            <td><strong>Account Holder</strong></td>
+            <td>{{ account.accountHolderName }}</td>
+          </tr>
+          <tr>
+            <td><strong>Account Number</strong></td>
+            <td>{{ account.accountNumber }}</td>
+          </tr>
+          <tr>
+            <td><strong>Account Type</strong></td>
+            <td>{{ account.accountType }}</td>
+          </tr>
+          <tr>
+            <td><strong>Balance</strong></td>
+            <td>₹ {{ account.balance | number:'1.2-2' }}</td>
+          </tr>
+          <tr>
+            <td><strong>Mobile</strong></td>
+            <td>{{ account.mobileNumber }}</td>
+          </tr>
+          <tr>
+            <td><strong>Address</strong></td>
+            <td>{{ account.address }}</td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td>{{ account.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- USER TRANSACTIONS (Table with Pagination) -->
+    <div *ngIf="showTransactions" class="card">
+      <h3>My Transactions</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Date & Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Display actual transactions -->
+          <tr *ngFor="let t of pagedTransactions">
+            <td>{{ t.id }}</td>
+            <td>{{ t.type }}</td>
+            <td>₹ {{ t.amount | number:'1.2-2' }}</td>
+            <td>{{ t.transactionTime | date:'dd MMM yyyy, hh:mm a' }}</td>
+          </tr>
+
+          <!-- Placeholder rows to maintain table height -->
+          <tr *ngFor="let empty of [].constructor(pageSize - pagedTransactions.length)">
+            <td>&nbsp;</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="transactions.length === 0">No transactions found.</p>
+
+      <!-- Pagination Controls -->
+      <div class="pagination" *ngIf="transactions.length > pageSize">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+      </div>
+    </div>
+
+  </div>
+</div>

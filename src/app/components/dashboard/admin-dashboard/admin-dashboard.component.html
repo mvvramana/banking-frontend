@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+
+  <h2>Banking Dashboard</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Total Accounts</h3>
+      <p>{{dashboard.totalAccounts}}</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Balance</h3>
+      <p>₹ {{dashboard.totalBalance | number:'1.2-2'}}</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Transactions</h3>
+      <p>{{dashboard.totalTransactions}}</p>
+    </div>
+
+    <div class="card">
+      <h3>Active Accounts</h3>
+      <p class="active">{{dashboard.activeAccounts}}</p>
+    </div>
+
+
+    <div class="card">
+      <h3>Blocked Accounts</h3>
+      <p class="blocked">{{dashboard.blockedAccounts}}</p>
+    </div>
+
+
+    <div class="card">
+      <h3>Closed Accounts</h3>
+      <p class="closed">{{dashboard.closedAccounts}}</p>
+    </div>
+
+    <div class="card">
+      <h3>Today's Transactions</h3>
+      <p>{{dashboard.todayTransactions}}</p>
+    </div>
+
+  </div>
+
+</div>

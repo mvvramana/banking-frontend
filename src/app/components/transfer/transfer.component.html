@@ -1,0 +1,61 @@
+<div class="transfer-container">
+
+  <h2>Transfer Money</h2>
+
+  <!-- ✅ Messages -->
+  <div *ngIf="successMessage" class="success-card">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert error-msg">
+    {{ errorMessage }}
+  </div>
+
+  <form #transferForm="ngForm" (ngSubmit)="transfer(transferForm)" novalidate>
+
+    <!-- From Account -->
+    <div class="form-group">
+      <label>From Account</label>
+
+      <input type="text" placeholder="Enter From Account Number" [(ngModel)]="transferData.fromAccount"
+        name="fromAccount" #fromAccount="ngModel" required minlength="6" (input)="onInputChange()">
+
+      <div class="error" *ngIf="fromAccount.invalid && fromAccount.touched">
+        <small *ngIf="fromAccount.errors?.['required']">From Account is required</small>
+        <small *ngIf="fromAccount.errors?.['minlength']">Enter valid account number</small>
+      </div>
+    </div>
+
+    <!-- To Account -->
+    <div class="form-group">
+      <label>To Account</label>
+
+      <input type="text" placeholder="Enter To Account Number" [(ngModel)]="transferData.toAccount" name="toAccount"
+        #toAccount="ngModel" required minlength="6" (input)="onInputChange()">
+
+      <div class="error" *ngIf="toAccount.invalid && toAccount.touched">
+        <small *ngIf="toAccount.errors?.['required']">To Account is required</small>
+        <small *ngIf="toAccount.errors?.['minlength']">Enter valid account number</small>
+      </div>
+    </div>
+
+    <!-- Amount -->
+    <div class="form-group">
+      <label>Transfer Amount</label>
+
+      <input type="number" placeholder="Enter Amount" [(ngModel)]="transferData.amount" name="amount" #amount="ngModel"
+        required min="1" (input)="onInputChange()">
+
+      <div class="error" *ngIf="amount.invalid && amount.touched">
+        <small *ngIf="amount.errors?.['required']">Amount is required</small>
+        <small *ngIf="amount.errors?.['min']">Amount must be greater than 0</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="transferForm.invalid">
+      Transfer Money
+    </button>
+
+  </form>
+
+</div>

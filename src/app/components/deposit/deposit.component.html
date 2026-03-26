@@ -1,0 +1,49 @@
+<div class="deposit-container">
+
+  <h2>Deposit Money</h2>
+  <div *ngIf="successMessage" class="success-card">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert error-msg">
+    {{ errorMessage }}
+  </div>
+  <form #depositForm="ngForm" (ngSubmit)="deposit(depositForm)" novalidate>
+
+    <!-- Account Number -->
+    <div class="form-group">
+
+      <label>Account Number</label>
+
+      <input type="text" placeholder="Enter Account Number" [(ngModel)]="depositData.accountNumber" name="accountNumber"
+        #accountNumber="ngModel" required minlength="6" (input)="onInputChange()">
+
+      <div class="error" *ngIf="accountNumber.invalid && accountNumber.touched">
+        <small *ngIf="accountNumber.errors?.['required']">Account number is required</small>
+        <small *ngIf="accountNumber.errors?.['minlength']">Enter valid account number</small>
+      </div>
+
+    </div>
+
+    <!-- Amount -->
+    <div class="form-group">
+
+      <label>Deposit Amount</label>
+
+      <input type="number" placeholder="Enter Amount" [(ngModel)]="depositData.amount" name="amount" #amount="ngModel"
+        required min="1" (input)="onInputChange()">
+
+      <div class="error" *ngIf="amount.invalid && amount.touched">
+        <small *ngIf="amount.errors?.['required']">Amount is required</small>
+        <small *ngIf="amount.errors?.['min']">Amount must be greater than 0</small>
+      </div>
+
+    </div>
+
+    <button type="submit" [disabled]="depositForm.invalid">
+      Deposit
+    </button>
+
+  </form>
+
+</div>

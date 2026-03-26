@@ -1,0 +1,82 @@
+<div class="update-container">
+
+  <div class="update-card">
+
+    <h2><i class="fas fa-edit"></i> Update Account</h2>
+    <!-- ✅ Messages -->
+    <div *ngIf="successMessage" class="success-card">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert error-msg">
+      {{ errorMessage }}
+    </div>
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      <i class="fas fa-spinner fa-spin"></i> Loading...
+    </div>
+
+    <!-- Form -->
+    <form *ngIf="!loading" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+
+      <!-- Account Holder Name -->
+      <div class="form-group">
+        <label>Account Holder Name</label>
+        <input type="text" formControlName="accountHolderName" placeholder="Enter name" (input)="onInputChange()">
+
+        <div class="error"
+          *ngIf="accountForm.get('accountHolderName')?.touched && accountForm.get('accountHolderName')?.invalid">
+          Name must be at least 3 characters
+        </div>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="text" formControlName="mobileNumber" placeholder="Enter mobile number" (input)="onInputChange()">
+
+        <div class="error" *ngIf="accountForm.get('mobileNumber')?.touched && accountForm.get('mobileNumber')?.invalid">
+          Enter valid 10-digit mobile number
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label>Status</label>
+        <select formControlName="status" (input)="onInputChange()">
+          <option value="" disabled>Select status</option>
+          <option value="ACTIVE">Active</option>
+          <option value="BLOCKED">Blocked</option>
+          <option value="CLOSED">Closed</option>
+        </select>
+
+        <div class="error" *ngIf="accountForm.get('status')?.touched && accountForm.get('status')?.invalid">
+          Status is required
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label>Address</label>
+        <textarea formControlName="address" rows="3" placeholder="Enter address" (input)="onInputChange()"></textarea>
+
+        <div class="error" *ngIf="accountForm.get('address')?.touched && accountForm.get('address')?.invalid">
+          Address is required
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <button type="submit" class="btn-save" [disabled]="accountForm.invalid">
+          Update
+        </button>
+        <button type="button" class="btn-cancel" (click)="goBack()">
+          Cancel
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

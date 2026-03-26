@@ -1,0 +1,73 @@
+<div class="transactions-container">
+
+  <h2>Transaction History</h2>
+
+  <!-- Search Section -->
+  <div class="search-box mb-3">
+
+    <input type="text" placeholder="Enter Account Number" [(ngModel)]="accountNumber" name="accountNumber"
+      #acc="ngModel" (ngModelChange)="onAccountChange()" required minlength="6"
+      class="form-control w-auto d-inline-block me-2">
+
+    <button class="btn btn-primary" (click)="currentPage = 0; loadTransactions()"
+      [disabled]="!accountNumber || accountNumber.length < 6 || loading">
+      Load
+    </button>
+
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading mb-3">
+    <i class="fas fa-spinner fa-spin me-2"></i> Loading transactions...
+  </div>
+
+  <!--  Error Message -->
+  <div *ngIf="errorMessage && !loading" class="alert alert-danger">
+    <span>⚠️</span>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <!--  No Data (only when NO error) -->
+  <div *ngIf="!loading && transactions.length === 0 && searched && !errorMessage" class="no-data mb-3">
+    No transactions found
+  </div>
+
+  <!-- Transactions Table -->
+  <table *ngIf="transactions.length > 0" class="table table-striped transactions-table">
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date & Time</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let t of transactions">
+        <td class="id">{{ t.id }}</td>
+        <td class="type">{{ t.type }}</td>
+        <td class="amount">₹ {{ t.amount | number:'1.2-2' }}</td>
+        <td>{{ t.transactionTime | date:'dd MMM yyyy, hh:mm a' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="transactions.length > 0"
+    class="pagination-controls mt-3 d-flex justify-content-center align-items-center gap-2">
+
+    <button class="btn btn-outline-primary" (click)="prevPage()" [disabled]="currentPage === 0 || loading">
+      Previous
+    </button>
+
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+
+    <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1 || loading">
+      Next
+    </button>
+
+  </div>
+
+</div>

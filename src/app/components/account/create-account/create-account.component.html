@@ -1,0 +1,115 @@
+<div class="account-container">
+    <h2>Create Bank Account</h2>
+
+    <form #accountForm="ngForm" (ngSubmit)="createAccount(accountForm)" novalidate>
+
+        <!-- Account Holder Name -->
+        <div class="form-group">
+            <label>Account Holder Name</label>
+            <input type="text" name="accountHolderName" [(ngModel)]="account.accountHolderName" #name="ngModel" required
+                minlength="3" placeholder="Enter Account Holder Name" (input)="onInputChange()">
+
+            <div class="error" *ngIf="name.invalid && name.touched">
+                <small *ngIf="name.errors?.['required']">Name is required</small>
+                <small *ngIf="name.errors?.['minlength']">Minimum 3 characters required</small>
+            </div>
+        </div>
+
+        <!-- Account Type -->
+        <div class="form-group">
+            <label>Account Type</label>
+
+            <select name="accountType" [(ngModel)]="account.accountType" #type="ngModel" required
+                (input)="onInputChange()">
+
+                <option value="">Select Account Type</option>
+                <option value="SAVINGS">Savings</option>
+                <option value="CURRENT">Current</option>
+            </select>
+
+            <div class="error" *ngIf="type.invalid && type.touched">
+                <small>Account Type is required</small>
+            </div>
+        </div>
+
+        <!-- Initial Deposit -->
+        <div class="form-group">
+            <label>Initial Deposit</label>
+
+            <input type="number" name="balance" [(ngModel)]="account.balance" #balance="ngModel" required min="500"
+                placeholder="Enter Initial Deposit" (input)="onInputChange()">
+
+            <div class="error" *ngIf="balance.invalid && balance.touched">
+                <small *ngIf="balance.errors?.['required']">Deposit amount required</small>
+                <small *ngIf="balance.errors?.['min']">Minimum ₹500 required</small>
+            </div>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="form-group">
+            <label>Mobile Number</label>
+
+            <input type="text" name="mobileNumber" [(ngModel)]="account.mobileNumber" #mobile="ngModel" required
+                pattern="^[0-9]{10}$" placeholder="Enter Mobile Number" (input)="onInputChange()">
+
+            <div class="error" *ngIf="mobile.invalid && mobile.touched">
+                <small *ngIf="mobile.errors?.['required']">Mobile number is required</small>
+                <small *ngIf="mobile.errors?.['pattern']">Enter valid 10-digit number</small>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+            <label>Address</label>
+
+            <textarea name="address" [(ngModel)]="account.address" #address="ngModel" required minlength="5"
+                placeholder="Enter Address" (input)="onInputChange()">
+            </textarea>
+
+            <div class="error" *ngIf="address.invalid && address.touched">
+                <small *ngIf="address.errors?.['required']">Address is required</small>
+                <small *ngIf="address.errors?.['minlength']">Minimum 5 characters required</small>
+            </div>
+        </div>
+
+        <!-- Aadhaar Number -->
+        <div class="form-group">
+            <label>Aadhaar Number</label>
+
+            <input type="text" name="aadhaarNumber" [(ngModel)]="account.aadhaarNumber" #aadhaar="ngModel" required
+                pattern="^[0-9]{12}$" placeholder="Enter Aadhaar Number" (input)="onInputChange()">
+
+            <div class="error" *ngIf="aadhaar.invalid && aadhaar.touched">
+                <small *ngIf="aadhaar.errors?.['required']">Aadhaar is required</small>
+                <small *ngIf="aadhaar.errors?.['pattern']">Enter valid 12-digit Aadhaar</small>
+            </div>
+        </div>
+
+        <!-- PAN Number -->
+        <div class="form-group">
+            <label>PAN Number</label>
+
+            <input type="text" name="panNumber" [(ngModel)]="account.panNumber" #pan="ngModel" required
+                pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}$" placeholder="Enter PAN Number" (input)="onInputChange()">
+
+            <div class="error" *ngIf="pan.invalid && pan.touched">
+                <small *ngIf="pan.errors?.['required']">PAN is required</small>
+                <small *ngIf="pan.errors?.['pattern']">Invalid PAN format</small>
+            </div>
+        </div>
+        <!-- ✅ Messages -->
+        <div *ngIf="successMessage" class="success-card">
+            {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage" class="alert error-msg">
+            {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="accountForm.invalid">
+            Create Account
+        </button>
+
+    </form>
+</div>

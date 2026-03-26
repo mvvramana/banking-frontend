@@ -1,0 +1,83 @@
+<div class="register-page">
+  <div class="register-container shadow-sm">
+
+    <h2 class="text-center mb-4">Create Your Account</h2>
+    <!-- ✅ Messages -->
+    <div *ngIf="successMessage" class="success-card">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert error-msg">
+      {{ errorMessage }}
+    </div>
+
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" novalidate>
+
+      <!-- Full Name -->
+      <div class="form-group mb-3">
+        <input type="text" name="name" placeholder="Full Name" [(ngModel)]="user.name" #name="ngModel" required
+          class="form-control" [ngClass]="{
+               'is-invalid': name.invalid && (name.touched || name.dirty),
+               'is-valid': name.valid && (name.touched || name.dirty)
+             }" (input)="onInputChange()">
+        <div class="invalid-feedback">
+          Name is required
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group mb-3">
+        <input type="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email
+          class="form-control" [ngClass]="{
+               'is-invalid': email.invalid && (email.touched || email.dirty),
+               'is-valid': email.valid && (email.touched || email.dirty)
+             }" (input)="onInputChange()">
+        <div class="invalid-feedback">
+          <span *ngIf="email.errors?.['required']">Email is required</span>
+          <span *ngIf="email.errors?.['email']">Invalid email format</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group mb-3">
+        <input type="password" name="password" placeholder="Password" [(ngModel)]="user.password" #password="ngModel"
+          required minlength="6" class="form-control" [ngClass]="{
+               'is-invalid': password.invalid && (password.touched || password.dirty),
+               'is-valid': password.valid && (password.touched || password.dirty)
+             }" (input)="onInputChange()">
+        <div class="invalid-feedback">
+          <span *ngIf="password.errors?.['required']">Password is required</span>
+          <span *ngIf="password.errors?.['minlength']">Minimum 6 characters</span>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-group mb-4">
+        <input type="text" name="phone" placeholder="Phone Number" [(ngModel)]="user.phone" #phone="ngModel" required
+          pattern="^[0-9]{10}$" class="form-control" [ngClass]="{
+               'is-invalid': phone.invalid && (phone.touched || phone.dirty),
+               'is-valid': phone.valid && (phone.touched || phone.dirty)
+             }" (input)="onInputChange()">
+        <div class="invalid-feedback">
+          <span *ngIf="phone.errors?.['required']">Phone number is required</span>
+          <span *ngIf="phone.errors?.['pattern']">Enter valid 10-digit number</span>
+        </div>
+      </div>
+
+      <!-- Register Button -->
+      <button type="submit" class="btn btn-primary w-100" [disabled]="!registerForm.form.valid">
+        Register
+      </button>
+
+    </form>
+
+    <!-- Login Section -->
+    <p class="login-text text-center mt-3">
+      Already have an account?
+      <a class="login-link" (click)="navigateToLogin()" tabindex="0">
+        Login
+      </a>
+    </p>
+
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+
+    <!-- Brand -->
+    <a class="navbar-brand" [routerLink]="role === 'ADMIN' ? '/admin-dashboard' : '/user-dashboard'">
+      <i class="fas fa-university me-2"></i> MyBank
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="navbar-collapse">
+
+      <ul class="navbar-nav me-auto align-items-lg-center">
+
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="role === 'ADMIN' ? '/admin-dashboard' : '/user-dashboard'"
+            routerLinkActive="active">
+            <i class="fas fa-chart-line me-1"></i> Dashboard
+          </a>
+        </li>
+
+        <!-- ADMIN ONLY -->
+        <ng-container *ngIf="role === 'ADMIN'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/create-account" routerLinkActive="active">
+              <i class="fas fa-user-plus me-1"></i> Create Account
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/view-accounts" routerLinkActive="active">
+              <i class="fas fa-list me-1"></i> View Accounts
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- COMMON -->
+        <ng-container *ngIf="role === 'USER' || role === 'ADMIN'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/deposit" routerLinkActive="active">
+              <i class="fas fa-arrow-down me-1"></i> Deposit
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/withdraw" routerLinkActive="active">
+              <i class="fas fa-arrow-up me-1"></i> Withdraw
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/transfer" routerLinkActive="active">
+              <i class="fas fa-exchange-alt me-1"></i> Transfer
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/transactions" routerLinkActive="active">
+              <i class="fas fa-history me-1"></i> Transactions
+            </a>
+          </li>
+        </ng-container>
+
+      </ul>
+
+      <!-- RIGHT SECTION -->
+      <div class="user-section">
+
+        <!-- Role -->
+        <div class="role-badge">
+          <i class="fas fa-user-circle"></i>
+          <span>{{ role }}</span>
+        </div>
+
+        <!-- Logout -->
+        <button class="logout-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</nav>

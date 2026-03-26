@@ -1,0 +1,92 @@
+<div class="account-details-container">
+
+    <div class="account-card">
+
+        <h2 class="title">
+            <i class="fas fa-university"></i> Account Details
+        </h2>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Loading account details...</span>
+        </div>
+
+        <!-- Account Data -->
+        <div *ngIf="!loading && account" class="details">
+
+            <!-- <div class="detail-row">
+                <span class="label">Account ID</span>
+                <span class="value">{{account.id}}</span>
+            </div> -->
+
+            <div class="detail-row">
+                <span class="label">Account Number</span>
+                <span class="value">{{account.accountNumber}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Account Holder</span>
+                <span class="value">{{account.accountHolderName}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Account Type</span>
+                <span class="value">{{account.accountType}}</span>
+            </div>
+
+            <div class="detail-row balance-row">
+                <span class="label">Available Balance</span>
+                <span class="value balance">
+                    ₹ {{account.balance | number:'1.2-2'}}
+                </span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Mobile Number</span>
+                <span class="value">{{account.mobileNumber || '-'}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Address</span>
+                <span class="value">{{account.address || '-'}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Aadhaar Number</span>
+                <span class="value">{{account.aadhaarNumber || '-'}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">PAN Number</span>
+                <span class="value">{{account.panNumber || '-'}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="label">Status</span>
+                <span class="value status" [ngClass]="{
+                        'status-active': account.status === 'ACTIVE',
+                        'status-inactive': account.status !== 'ACTIVE'
+                      }">
+                    {{account.status}}
+                </span>
+            </div>
+
+        </div>
+
+        <!-- No Data -->
+        <div *ngIf="!loading && !account" class="no-data">
+            <i class="fas fa-exclamation-circle"></i>
+            Account not found
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center mt-3">
+            <button class="btn-back" (click)="goBack()">
+                ← Back
+            </button>
+        </div>
+
+    </div>
+
+</div>

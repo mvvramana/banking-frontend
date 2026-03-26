@@ -1,0 +1,267 @@
+.accounts-container {
+  width: 85%;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Table */
+.accounts-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  /* 🔥 VERY IMPORTANT */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Header */
+.accounts-table th {
+  background: linear-gradient(135deg, #2c3e50, #1a252f);
+  color: white;
+  padding: 14px;
+  text-align: center;
+  /* 🔥 center align */
+  font-size: 14px;
+}
+
+/* Body */
+.accounts-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  text-align: center;
+
+  /* 🔥 FIX TEXT OVERFLOW */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 🔥 FIXED COLUMN WIDTHS */
+/* 🔥 FIXED COLUMN WIDTHS (UPDATED) */
+.accounts-table th:nth-child(1),
+.accounts-table td:nth-child(1) {
+  width: 70px;
+  /* ✅ ID (reduced) */
+}
+
+.accounts-table th:nth-child(2),
+.accounts-table td:nth-child(2) {
+  width: 150px;
+  /* Acc No */
+}
+
+.accounts-table th:nth-child(3),
+.accounts-table td:nth-child(3) {
+  width: 220px;
+  /* ✅ Name (increased) */
+}
+
+.accounts-table th:nth-child(4),
+.accounts-table td:nth-child(4) {
+  width: 120px;
+  /* Type */
+}
+
+.accounts-table th:nth-child(5),
+.accounts-table td:nth-child(5) {
+  width: 140px;
+  /* Balance */
+}
+
+.accounts-table th:nth-child(6),
+.accounts-table td:nth-child(6) {
+  width: 120px;
+  /* Status */
+}
+
+.accounts-table th:nth-child(7),
+.accounts-table td:nth-child(7) {
+  width: 160px;
+  /* Actions */
+}
+
+/* Row hover */
+.accounts-table tr:hover {
+  background: #f8f9fa;
+  transition: 0.2s;
+}
+
+/* Balance */
+.balance {
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+/* Status Badge */
+.status-active {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.status-inactive {
+  background-color: #dc3545;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+/* Account Type Badge */
+.type-badge {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+/* Loading & No Data */
+.loading {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}
+
+/* .no-data {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+} */
+
+/* 🔥 ACTION BUTTON ALIGNMENT FIX */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.actions button {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actions button i {
+  pointer-events: none;
+}
+
+/* Button Colors */
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: black;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Hover */
+.actions button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Pagination */
+.pagination-controls {
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #007bff;
+  background: white;
+  color: #007bff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination-controls button:hover {
+  background: #007bff;
+  color: white;
+}
+
+.pagination-controls button:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.search-box input {
+  border-radius: 8px;
+  padding: 8px;
+  width: 250px;
+}
+
+.error {
+  color: red;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.no-data {
+  color: #888;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Error message */
+.alert.error-msg {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+/* Field validation */
+.error small {
+  color: red;
+}
+
+.success-card {
+  background: #e6fffa;
+  border-left: 5px solid #00b894;
+  color: #00695c;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

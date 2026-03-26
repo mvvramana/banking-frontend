@@ -1,0 +1,163 @@
+.update-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  font-family: Arial, sans-serif;
+  padding: 10px;
+}
+
+.update-card {
+  width: 400px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.update-card:hover {
+  transform: translateY(-3px);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+/* Focus effect */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+/* Error message */
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  min-width: 100px;
+}
+
+.btn-save {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancel {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover effects */
+.btn-save:hover {
+  background: #218838;
+}
+
+.btn-cancel:hover {
+  background: #5a6268;
+}
+
+/* Disabled button */
+.btn-save:disabled {
+  background: #94d3a2;
+  cursor: not-allowed;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  color: #555;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+  .update-card {
+    width: 100%;
+  }
+}
+
+/* Error message */
+.alert.error-msg {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+/* Field validation */
+.error small {
+  color: red;
+}
+
+.success-card {
+  background: #e6fffa;
+  border-left: 5px solid #00b894;
+  color: #00695c;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

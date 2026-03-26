@@ -1,0 +1,97 @@
+<div class="accounts-container">
+
+  <h2>All Bank Accounts</h2>
+
+  <!-- 🔍 Search -->
+  <div class="search-box mb-3">
+    <input type="text" placeholder="Search by Account Number" [(ngModel)]="searchText" (input)="searchAccounts()"
+      class="form-control w-25" />
+  </div>
+
+  <!-- ✅ Global Messages -->
+  <div *ngIf="successMessage && !loading" class="success-card">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage && !loading" class="alert error-msg">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <i class="fas fa-spinner fa-spin me-2"></i> Loading accounts...
+  </div>
+
+  <!-- No Data -->
+  <div *ngIf="!loading && accounts.length === 0 && searched" class="no-data">
+    No accounts found
+  </div>
+
+  <!-- Table -->
+  <table *ngIf="accounts.length > 0" class="accounts-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Acc No</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let acc of accounts">
+        <td>{{acc.id}}</td>
+        <td>{{acc.accountNumber}}</td>
+
+        <td title="{{acc.accountHolderName}}">
+          {{acc.accountHolderName}}
+        </td>
+
+        <td>{{acc.accountType}}</td>
+
+        <td class="balance">
+          ₹ {{acc.balance | number:'1.2-2'}}
+        </td>
+
+        <td>{{acc.status}}</td>
+
+        <td class="actions">
+
+          <button class="btn btn-info btn-sm me-1" (click)="viewDetails(acc.id)">
+            <i class="fas fa-eye"></i>
+          </button>
+
+          <button class="btn btn-warning btn-sm me-1" (click)="editAccount(acc.id)">
+            <i class="fas fa-edit"></i>
+          </button>
+
+          <button class="btn btn-danger btn-sm" (click)="deleteAccount(acc.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div *ngIf="accounts.length > 0 && !searchText"
+    class="pagination-controls mt-3 d-flex justify-content-center align-items-center gap-2">
+
+    <button class="btn btn-outline-primary" (click)="prevPage()" [disabled]="currentPage === 0">
+      Previous
+    </button>
+
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+
+    <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
+      Next
+    </button>
+
+  </div>
+
+</div>
