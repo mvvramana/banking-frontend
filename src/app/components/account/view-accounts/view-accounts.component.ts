@@ -21,7 +21,12 @@ export class ViewAccountsComponent implements OnInit {
   currentPage = 0;
   pageSize = 5;
   totalPages = 0;
-  rowMessages: { [key: number]: { error?: string, success?: string } } = {};
+
+  // ✅ NEW VARIABLES
+  showDeleteConfirm = false;
+  showCenterSuccess = false;
+  selectedAccountId: number | null = null;
+
   constructor(private accountService: AccountService, private router: Router) { }
 
   ngOnInit() {
@@ -31,6 +36,7 @@ export class ViewAccountsComponent implements OnInit {
   loadAccounts() {
     this.loading = true;
     this.errorMessage = '';
+
     this.accountService.getAccounts(this.currentPage, this.pageSize)
       .subscribe({
         next: (data: any) => {
@@ -39,7 +45,6 @@ export class ViewAccountsComponent implements OnInit {
           this.loading = false;
         },
         error: (err) => {
-          console.error(err);
           this.loading = false;
 
           if (err.error?.message) {
@@ -80,25 +85,42 @@ export class ViewAccountsComponent implements OnInit {
     this.router.navigate(['/accounts', accountId, 'edit']);
   }
 
-  deleteAccount(accountId: number) {
-    const confirmDelete = confirm("⚠️ Are you sure you want to delete this account?");
-    if (!confirmDelete) return;
-    // ✅ Reset messages before API call
+  // ✅ OPEN CONFIRM POPUP
+  openDeleteConfirm(accountId: number) {
+    this.selectedAccountId = accountId;
+    this.showDeleteConfirm = true;
+  }
+
+  // ❌ CANCEL DELETE
+  cancelDelete() {
+    this.showDeleteConfirm = false;
+    this.selectedAccountId = null;
+  }
+
+  // ✅ CONFIRM DELETE (REAL DELETE CALL)
+  confirmDelete() {
+    if (!this.selectedAccountId) return;
+
+    this.showDeleteConfirm = false;
     this.successMessage = '';
     this.errorMessage = '';
-    this.accountService.deleteAccount(accountId).subscribe({
+
+    this.accountService.deleteAccount(this.selectedAccountId).subscribe({
       next: () => {
         this.successMessage = "Account deleted successfully ✅";
 
-        // ✅ Auto hide success + reload
+        // ✅ SHOW CENTER SUCCESS POPUP
+        this.showCenterSuccess = true;
+
+        // ⏳ AUTO HIDE + RELOAD
         setTimeout(() => {
+          this.showCenterSuccess = false;
           this.successMessage = '';
           this.loadAccounts();
-        }, 3000);
+        }, 2500);
       },
 
       error: (err) => {
-        console.error("Delete Error:", err);
 
         if (err.error?.message) {
           this.errorMessage = err.error.message;
@@ -110,22 +132,28 @@ export class ViewAccountsComponent implements OnInit {
           this.errorMessage = "Something went wrong ❌";
         }
 
-        // ✅ Auto hide error
+        // ❌ AUTO HIDE ERROR
         setTimeout(() => {
           this.errorMessage = '';
         }, 3000);
       }
     });
+
+    this.selectedAccountId = null;
   }
 
+  // 🔍 SEARCH
   searchAccounts() {
     this.searched = true;
+
     if (!this.searchText) {
       this.loadAccounts();
       return;
     }
+
     this.loading = true;
     this.errorMessage = '';
+
     this.accountService.searchAccounts(this.searchText)
       .subscribe({
         next: (data: any) => {
@@ -134,7 +162,6 @@ export class ViewAccountsComponent implements OnInit {
         },
         error: (err) => {
           this.loading = false;
-          this.successMessage = '';
 
           if (err.error?.message) {
             this.errorMessage = err.error.message;
@@ -146,6 +173,7 @@ export class ViewAccountsComponent implements OnInit {
         }
       });
   }
+
   onInputChange() {
     this.successMessage = '';
     this.errorMessage = '';

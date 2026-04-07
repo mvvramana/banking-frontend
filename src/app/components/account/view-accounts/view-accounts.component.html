@@ -8,13 +8,20 @@
       class="form-control w-25" />
   </div>
 
-  <!-- ✅ Global Messages -->
-  <div *ngIf="successMessage && !loading" class="success-card">
-    {{ successMessage }}
+  <!-- ✅ Center Success Message -->
+  <div *ngIf="successMessage && !loading" class="overlay">
+    <div class="center-card success-card">
+      <i class="fas fa-check-circle"></i>
+      <p>{{ successMessage }}</p>
+    </div>
   </div>
 
-  <div *ngIf="errorMessage && !loading" class="alert error-msg">
-    {{ errorMessage }}
+  <!-- ❌ Center Error Message -->
+  <div *ngIf="errorMessage && !loading" class="overlay">
+    <div class="center-card error-card">
+      <i class="fas fa-times-circle"></i>
+      <p>{{ errorMessage }}</p>
+    </div>
   </div>
 
   <!-- Loading -->
@@ -68,7 +75,7 @@
             <i class="fas fa-edit"></i>
           </button>
 
-          <button class="btn btn-danger btn-sm" (click)="deleteAccount(acc.id)">
+          <button class="btn btn-danger btn-sm" (click)="openDeleteConfirm(acc.id)">
             <i class="fas fa-trash"></i>
           </button>
 
@@ -92,6 +99,26 @@
       Next
     </button>
 
+  </div>
+  <!-- ✅ Custom Delete Confirmation Card -->
+  <div *ngIf="showDeleteConfirm" class="overlay">
+    <div class="confirm-card">
+      <h4>Confirm Delete</h4>
+      <p>Are you sure you want to delete this account?</p>
+
+      <div class="actions">
+        <button class="btn btn-danger me-2" (click)="confirmDelete()">Yes, Delete</button>
+        <button class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Center Success Card -->
+  <div *ngIf="showCenterSuccess" class="overlay">
+    <div class="success-popup">
+      <i class="fas fa-check-circle"></i>
+      <p>{{ successMessage }}</p>
+    </div>
   </div>
 
 </div>
